@@ -3,6 +3,7 @@ package server
 import (
 	"context"
 	"errors"
+	"log/slog"
 	"strconv"
 	"time"
 
@@ -61,6 +62,7 @@ func (s *Server) Check(ctx context.Context, req *openfgav1.CheckRequest) (*openf
 		return nil, err
 	}
 
+	slog.Debug("DEBUG, I AM HERE")
 	checkQuery := commands.NewCheckCommand(
 		s.datastore,
 		s.checkResolver,
