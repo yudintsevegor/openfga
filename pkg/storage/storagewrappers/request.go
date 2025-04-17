@@ -31,7 +31,7 @@ func NewRequestStorageWrapper(
 ) *RequestStorageWrapper {
 	var tupleReader storage.RelationshipTupleReader
 	tupleReader = NewBoundedConcurrencyTupleReader(ds, maxConcurrentReads) // to rate-limit reads
-	slog.Debug("DEBUG cacheSettings.ShouldCacheIterators()", cacheSettings.ShouldCacheIterators())
+	slog.Debug("DEBUG cacheSettings.ShouldCacheIterators(): %v, %v, %v", cacheSettings.ShouldCacheIterators(), cacheSettings.CheckCacheLimit, cacheSettings.CheckIteratorCacheEnabled)
 	if cacheSettings.ShouldCacheIterators() {
 		// Reads tuples from cache where possible
 		tupleReader = NewCachedDatastore(
