@@ -490,6 +490,7 @@ func (c *LocalChecker) ResolveCheck(
 		}, nil
 	}
 
+	slog.Info("before checkRewrite")
 	resp, err := c.checkRewrite(ctx, req, rel.GetRewrite())(ctx)
 	if err != nil {
 		telemetry.TraceError(span, err)
