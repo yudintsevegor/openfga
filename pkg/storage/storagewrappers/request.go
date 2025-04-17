@@ -1,8 +1,6 @@
 package storagewrappers
 
 import (
-	"log/slog"
-
 	openfgav1 "github.com/openfga/api/proto/openfga/v1"
 
 	"github.com/openfga/openfga/internal/shared"
@@ -31,7 +29,6 @@ func NewRequestStorageWrapper(
 ) *RequestStorageWrapper {
 	var tupleReader storage.RelationshipTupleReader
 	tupleReader = NewBoundedConcurrencyTupleReader(ds, maxConcurrentReads) // to rate-limit reads
-	slog.Debug("DEBUG cacheSettings.ShouldCacheIterators(): %v, %v, %v", cacheSettings.ShouldCacheIterators(), cacheSettings.CheckCacheLimit, cacheSettings.CheckIteratorCacheEnabled)
 	if cacheSettings.ShouldCacheIterators() {
 		// Reads tuples from cache where possible
 		tupleReader = NewCachedDatastore(

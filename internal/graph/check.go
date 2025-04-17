@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"log/slog"
 	"sync"
 
 	"github.com/emirpasic/gods/sets/hashset"
@@ -528,7 +529,6 @@ func checkAssociatedObjects(ctx context.Context, req *ResolveCheckRequest, objec
 
 	typesys, _ := typesystem.TypesystemFromContext(ctx)
 	ds, _ := storage.RelationshipTupleReaderFromContext(ctx)
-
 	iter, err := checkutil.IteratorReadStartingFromUser(ctx, typesys, ds, req, objectRel, objectIDs, false)
 	if err != nil {
 		telemetry.TraceError(span, err)
@@ -1394,6 +1394,7 @@ func (c *LocalChecker) checkTTU(parentctx context.Context, req *ResolveCheckRequ
 		}
 
 		storeID := req.GetStoreID()
+		slog.Info("checkTTU: ds.Read", "store_id", storeID)
 		iter, err := ds.Read(
 			ctx,
 			storeID,

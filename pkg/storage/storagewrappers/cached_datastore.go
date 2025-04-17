@@ -3,7 +3,6 @@ package storagewrappers
 import (
 	"context"
 	"errors"
-	"log/slog"
 	"strconv"
 	"strings"
 	"sync"
@@ -230,7 +229,6 @@ func (c *CachedDatastore) Read(
 	tupleKey *openfgav1.TupleKey,
 	options storage.ReadOptions,
 ) (storage.TupleIterator, error) {
-	slog.Debug("DEBUG cache.Read")
 	ctx, span := tracer.Start(
 		ctx,
 		"cache.Read",
